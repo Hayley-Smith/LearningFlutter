@@ -1,6 +1,5 @@
+import 'package:firstFlutterApp/result.dart';
 import 'package:flutter/material.dart';
-import './question.dart';
-import './answer.dart';
 import './quiz.dart';
 
 
@@ -19,20 +18,41 @@ class _MyAppState extends State<MyApp> {
   final _questions = const [
   {
     'questionText': 'What is you favorite color?',
-    'answers': ['red', 'green', 'blue'],
+    'answers': [
+      {'text': 'red', 'score': 1},
+      {'text': 'green', 'score': 2},
+      {'text': 'yellow', 'score': 3},
+      ],
   },
   {
     'questionText': 'What is your favorite animal?',
-    'answers': ['horse', 'dog', 'cat'],
+    'answers': [
+      {'text': 'horse', 'score': 10},
+      {'text': 'dog', 'score': 5},
+      {'text': 'cat', 'score': 1},
+    ],
   },
   {
-    'questionText': 'What is your favorite animal2?',
-    'answers': ['horse2', 'dog2', 'cat2'],
+    'questionText': 'What is your favorite dragon?',
+    'answers': [
+      {'text': 'red', 'score': 1},
+      {'text': 'black', 'score': 2},
+      {'text': 'gold', 'score': 3},
+    ],
   }
   ];
   var _questionIndex = 0;
+  var _totalScore = 0;
 
-  void _answerQuestion(){
+  void _resetQuiz() {
+    setState(() {
+      _questionIndex = 0;
+      _totalScore = 0;
+    });
+  }
+
+  void _answerQuestion(int score){
+    _totalScore = _totalScore + score;
 
     setState(() {
        _questionIndex = _questionIndex + 1;
@@ -48,7 +68,6 @@ class _MyAppState extends State<MyApp> {
 
   @override //makes it clear which build method should be used
   Widget build(BuildContext context) {
-
     return MaterialApp(
       home: Scaffold(
         appBar: AppBar(
@@ -58,7 +77,7 @@ class _MyAppState extends State<MyApp> {
             answerQuestion: _answerQuestion,
             questionIndex: _questionIndex,
             questions: _questions) //quiz
-            : Center(child: Text('You did it!'),), //center
+            : Result(_totalScore, _resetQuiz), //center
       ),
     );
   } //build widget
