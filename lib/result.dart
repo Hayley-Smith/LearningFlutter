@@ -25,8 +25,10 @@ class Result extends StatelessWidget {
     return Center(
       child: Column(
         children: [
-          Text(resultPhrase, style: TextStyle(fontSize: 36, fontWeight: FontWeight.bold),
-          textAlign: TextAlign.center,
+          Text(
+            resultPhrase,
+            style: TextStyle(fontSize: 36, fontWeight: FontWeight.bold),
+            textAlign: TextAlign.center,
           ),
           FlatButton(onPressed: resetHandler, child: Text('Restart Quiz!'))
         ],
